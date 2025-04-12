@@ -1,8 +1,9 @@
-![image](https://github.com/user-attachments/assets/d20d76d4-1832-4399-8918-7cc4f182953c)![image](https://github.com/user-attachments/assets/7fb08741-e5e1-4111-8241-8023ac69eed6)## Основи операційного керування процесами в Unix-подібних ОС
+## Основи операційного керування процесами в Unix-подібних ОС
 
 ### 2.3 Перегляд таблиці процесів Unix-подібної ОС
 
-
+![image](https://github.com/user-attachments/assets/d20d76d4-1832-4399-8918-7cc4f182953c)
+![image](https://github.com/user-attachments/assets/7fb08741-e5e1-4111-8241-8023ac69eed6)
 ![image](https://github.com/user-attachments/assets/6ea43833-7953-4ef8-b096-a7700a7eb109)
 
 Рис. 1 – Фрагмент екрану з рішення завдання 2.3.1 Отримати ієрархію процесів у вигляді дерева, враховуючи наступне: імена користувачів, які запустили процеси; PID процесів.
