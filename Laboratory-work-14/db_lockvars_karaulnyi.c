@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <string.h>
 
+// Одна сигнальна змінна для блокування
+int turn = 0;
+
 // Структура, що відповідає реляційній таблиці printer
 typedef struct {
     int pr_id;
@@ -13,57 +16,59 @@ typedef struct {
 // Глобальна змінна для даних
 Printer db_printer = {1, "HP LaserJet", 2020};
 
-// Змінні блокування
-int lock1 = 0, lock2 = 0;
-
 // Функція для потоку T1
 void* T1(void* arg) {
-    // Затримка для імітації паралельної роботи
-    usleep(100000);
-    
-    // Читання значення
-    printf("T1: Read year = %d\n", db_printer.year);
-    
-    // Алгоритм змінних блокування
-    lock1 = 1;
-    while (lock2 == 1) {
-        lock1 = 0;
-        usleep(10000);
-        lock1 = 1;
+    for (int i = 0; i < 3; i++) {
+        // Очікування своєї черги
+        while (turn != 0) {
+            usleep(100000);
+        }
+        
+        // Вхід у критичну секцію
+        printf("T1: Critical Region\n");
+        printf("T1: Read year = %d\n", db_printer.year);
+        
+        // Зміна значення
+        db_printer.year += 1;
+        printf("T1: Write year = %d\n", db_printer.year);
+        
+        // Передача черги T2
+        turn = 1;
+        
+        // Некритична секція
+        printf("T1: Non-Critical Region\n");
+        usleep(100000);
     }
-    
-    // Зміна значення
-    db_printer.year += 1;
-    printf("T1: Updated year = %d\n", db_printer.year);
-    
-    // Зняття блокування
-    lock1 = 0;
     
     return NULL;
 }
 
 // Функція для потоку T2
 void* T2(void* arg) {
-    // Затримка для імітації паралельної роботи
-    usleep(150000);
+    // Початкова затримка для імітації паралельної роботи
+    usleep(100000);
     
-    // Читання значення
-    printf("T2: Read year = %d\n", db_printer.year);
-    
-    // Алгоритм змінних блокування
-    lock2 = 1;
-    while (lock1 == 1) {
-        lock2 = 0;
-        usleep(10000);
-        lock2 = 1;
+    for (int i = 0; i < 3; i++) {
+        // Очікування своєї черги
+        while (turn != 1) {
+            usleep(100000);
+        }
+        
+        // Вхід у критичну секцію
+        printf("T2: Critical Region\n");
+        printf("T2: Read year = %d\n", db_printer.year);
+        
+        // Зміна значення
+        db_printer.year += 2;
+        printf("T2: Write year = %d\n", db_printer.year);
+        
+        // Передача черги T1
+        turn = 0;
+        
+        // Некритична секція
+        printf("T2: Non-Critical Region\n");
+        usleep(100000);
     }
-    
-    // Зміна значення
-    db_printer.year += 2;
-    printf("T2: Updated year = %d\n", db_printer.year);
-    
-    // Зняття блокування
-    lock2 = 0;
     
     return NULL;
 }
@@ -79,6 +84,7 @@ int main() {
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
     
+    // Виведення кінцевого значення
     printf("Final year = %d\n", db_printer.year);
     
     return 0;
