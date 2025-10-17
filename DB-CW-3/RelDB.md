@@ -1,29 +1,46 @@
 ```mermaid
 erDiagram
-    LOC {
-        Locno integer PK
-        Lname string
+    Patients {
+        integer patient_id PK
+        string full_name
+        date birth_date
+        integer height
+        integer weight
     }
 
-    DEPT {
-        Deptno integer PK
-        Dname string
-        Locno integer FK
+    Doctors {
+        integer doctor_id PK
+        string full_name
+        string specialization
     }
 
-    EMP {
-        Empno integer PK
-        Ename string
-        Job string
-        Mgr integer
-        Hiredate date
-        Sal integer
-        Comm integer
-        Deptno integer FK
+    %% Сполучна таблиця для зв'язку "багато-до-багатьох"
+    Doctors_Patients {
+        integer doctor_id FK
+        integer patient_id FK
     }
 
-    %% Відношення (PK / FK)
-    LOC ||--o{ DEPT : ""
-    DEPT ||--o{ EMP : ""
-    EMP ||--o{ EMP : ""
+    Medical_Cards {
+        integer card_id PK
+        string card_number
+        date creation_date
+        integer patient_id FK
+    }
+
+    Medical_Records {
+        integer record_id PK
+        string record_type "Тип запису, напр. 'Діагноз' або 'Аналіз'"
+        string description
+        date record_date
+        integer card_id FK
+        integer doctor_id FK
+    }
+
+    %% Зв'язки
+    Patients ||--o{ Medical_Cards : "має"
+    Patients }o--o{ Doctors_Patients : "спостерігається у"
+    Doctors }o--o{ Doctors_Patients : "спостерігає за"
+    
+    Medical_Cards ||--o{ Medical_Records : "містить"
+    Doctors ||--o{ Medical_Records : "створює"
 ```
