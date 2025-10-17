@@ -1,30 +1,33 @@
 ```mermaid
 graph TD
-  %% джерела
-  EMP[EMP]
-  DEPT[DEPT]
-  LOC[LOC]
+    %% Джерела (таблиці з вашої БД)
+    Patients[Patients]
+    Doctors[Doctors]
+    Medical_Records[Medical_Records]
 
-  %% селекції
-  S1["&sigma;(comm > 0)"]
-  S2["&sigma;(dname = 'IT')"]
+    %% Операції вибірки (фільтрації)
+    S1["&sigma;(specialization = 'Терапевт')"]
+    S2["&sigma;(record_type = 'Діагноз')"]
 
-  %% з'єднання
-  J1["&bowtie; EMP.deptno = DEPT.deptno"]
-  J2["&bowtie; DEPT.locno = LOC.locno"]
+    %% Операції з'єднання
+    J1["&bowtie; Doctors.doctor_id = Medical_Records.doctor_id"]
+    J2["&bowtie; Medical_Records.card_id = Medical_Cards.card_id -> ..."]
+    %% Припустимо, що Medical_Records має patient_id для спрощення
+    J_final["&bowtie; Medical_Records.patient_id = Patients.patient_id"]
 
-  %% проекція
-  P["&pi;(ename, job)"]
 
-  %% Потік операцій
-  EMP --> S1
-  DEPT --> S2
+    %% Операція проекції (вибір стовпців)
+    P["&pi;(full_name)"]
 
-  S1 --> J1
-  S2 --> J1
+    %% Потік операцій
+    Doctors --> S1
+    Medical_Records --> S2
+    
+    S1 --> J1
+    S2 --> J1
 
-  J1 --> J2
-  LOC --> J2
+    J1 --> J_final
+    Patients --> J_final
 
-  J2 --> P
+    J_final --> P
 ```
