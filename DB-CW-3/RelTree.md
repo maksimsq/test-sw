@@ -1,33 +1,40 @@
 ```mermaid
 graph TD
-    %% Джерела (таблиці з вашої БД)
-    Patients[Patients]
-    Doctors[Doctors]
-    Medical_Records[Medical_Records]
+    %% Джерела (таблиці) — оформлені як овали
+    Patients((Patients))
+    Doctors((Doctors))
+    Medical_Records((Medical_Records))
+    Medical_Cards((Medical_Cards))
 
-    %% Операції вибірки (фільтрації)
-    S1["&sigma;(specialization = 'Терапевт')"]
-    S2["&sigma;(record_type = 'Діагноз')"]
+    %% Операції - прямокутники (будемо робити їх з пунктирною лінією і без заливки)
+    S1["σ(specialization = 'Терапевт')"]
+    S2["σ(record_type = 'Діагноз')"]
 
-    %% Операції з'єднання
-    J1["&bowtie; Doctors.doctor_id = Medical_Records.doctor_id"]
-    J2["&bowtie; Medical_Records.card_id = Medical_Cards.card_id -> ..."]
-    %% Припустимо, що Medical_Records має patient_id для спрощення
-    J_final["&bowtie; Medical_Records.patient_id = Patients.patient_id"]
+    %% З'єднання (по двох зв'язках, в підсумку буде з'єднання трьох таблиць)
+    J1["⋈ Doctors.doctor_id = Medical_Records.doctor_id"]
+    J2["⋈ Medical_Records.card_id = Medical_Cards.card_id"]
+    J3["⋈ Medical_Cards.patient_id = Patients.patient_id"]
 
+    %% Операція проекції (обрати 1 або 2 стовпці однієї таблиці, тут - з таблиці Patients)
+    P["π(full_name, birth_date)"]    %% дві колонки з однієї таблиці (Patients)
 
-    %% Операція проекції (вибір стовпців)
-    P["&pi;(full_name)"]
-
-    %% Потік операцій
+    %% Потік операцій (приклад: вибірки -> з'єднання трьох таблиць -> проекція)
     Doctors --> S1
     Medical_Records --> S2
-    
+
     S1 --> J1
     S2 --> J1
 
-    J1 --> J_final
-    Patients --> J_final
+    J1 --> J2
+    Medical_Cards --> J2
 
-    J_final --> P
+    J2 --> J3
+    Patients --> J3
+
+    J3 --> P
+
+    %% Клас для оформлення операцій: пунктирний прямокутник без заливки
+    class S1,S2,J1,J2,J3,P op;
+
+    classDef op stroke-dasharray: 5 5, fill:none, stroke:#000, stroke-width:1;
 ```
