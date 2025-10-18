@@ -36,11 +36,11 @@ erDiagram
         integer doctor_id FK
     }
 
-    %% Зв'язки
+    %% Зв'язки (кардинальності)
     Patients ||--o{ Medical_Cards : "має"
-    Patients }o--o{ Doctors_Patients : "спостерігається у"
-    Doctors }o--o{ Doctors_Patients : "спостерігає за"
-    
+    Patients ||--o{ Doctors_Patients : "пов'язаний_через"
+    Doctors ||--o{ Doctors_Patients : "пов'язаний_через"
+
     Medical_Cards ||--o{ Medical_Records : "містить"
     Doctors ||--o{ Medical_Records : "створює"
 ```
