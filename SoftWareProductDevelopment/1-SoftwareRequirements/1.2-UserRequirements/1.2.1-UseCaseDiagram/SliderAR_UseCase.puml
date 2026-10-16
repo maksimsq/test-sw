@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Користувач" as User
+actor "Викладач" as Teacher
+actor "Камера" as Camera
+actor "Модуль розпізнавання\nAR-маркерів" as Vision
+
+Teacher --|> User
+
+rectangle "SliderAR" {
+  usecase "Запустити систему" as UC1
+  usecase "Надати доступ\nдо камери" as UC2
+  usecase "Розпізнати AR-маркер" as UC3
+  usecase "Визначити положення\nповзунка" as UC4
+  usecase "Переглянути поточне\nположення" as UC5
+  usecase "Налаштувати діапазон\nслайдера" as UC6
+  usecase "Показати повідомлення\nпро втрату маркера" as UC7
+  usecase "Завершити роботу" as UC8
+}
+
+User --> UC1
+User --> UC5
+User --> UC6
+User --> UC8
+Camera --> UC2
+Camera --> UC3
+Vision --> UC3
+
+UC1 .> UC2 : <<include>>
+UC4 .> UC3 : <<include>>
+UC5 .> UC4 : <<include>>
+UC7 .> UC3 : <<extend>>
+Teacher --> UC5
+Teacher --> UC6
+@enduml
