@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+node "Користувацький пристрій (ПК / Смартфон)" as Device {
+    artifact "SliderAR Application\n(Python / OpenCV)" as App {
+        component "Presentation Layer (PL)\n[GUI & Video Stream]" as PL
+        component "Business Logic Layer (BL)\n[ArUco Detector & Math]" as BL
+        component "Access Layer (AL)\n[JSON Config Manager]" as AL
+    }
+}
+
+node "Зовнішнє обладнання" as Hardware {
+    artifact "Веб-камера / Камера" as Cam
+    artifact "Фізичний повзунок\n[з AR-маркером]" as Slider
+}
+
+Cam --> PL : Відеопотік (USB/MIPI)
+Slider --> Cam : Фізичне переміщення
+PL --> BL : Передача кадрів
+BL --> PL : Координати / Положення %
+BL --> AL : Збереження налаштувань
+AL --> Device : Файл конфігурації (JSON)
+
+@enduml
