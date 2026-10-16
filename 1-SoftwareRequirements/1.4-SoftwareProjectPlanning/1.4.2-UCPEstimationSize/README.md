@@ -1,6 +1,6 @@
 ### 1.4.2-UCPEstimationSize
 ### Оцінка трудомісткості процесу розробки програмного продукту
 
-Для оцінки трудомісткості розробки проєкту **SliderAR** за методологією Use Case Point (UCP) було використано розрахункову таблицю.
+Для оцінки трудомісткості розробки проєкту **SliderAR** за методологією Use Case Point (UCP) було використано персональну копію розрахункової таблиці.
 
-- **Посилання на таблицю оцінки UCP:** [Google Sheets - SliderAR UCP Estimation](https://docs.google.com/spreadsheets/d/1Sop9ly6YTdTd--AjrNTc1Wu6WSVTD7ghTfRuZy6nOEM) *(копія таблиці)*
+- **Посилання на власну копію таблиці оцінки UCP:** [Google Sheets - SliderAR UCP Estimation (Karaualnij)](https://docs.google.com/spreadsheets/d/16mjyDbVg5khtMLxHT1n11qDRnsscI8oD8LmT8UWSEvE/edit?usp=sharing)
