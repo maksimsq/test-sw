@@ -1,0 +1,48 @@
+@startuml
+skinparam linetype ortho
+
+entity "Camera" as Camera {
+  + cameraId : INT [PK]
+  --
+  resolution : VARCHAR(50)
+  frameRate : INT
+}
+
+entity "ArUcoMarker" as ArUcoMarker {
+  + markerId : INT [PK]
+  --
+  size : FLOAT
+  cameraId : INT [FK]
+}
+
+entity "SliderController" as SliderController {
+  + sliderId : INT [PK]
+  --
+  currentValue : FLOAT
+  state : VARCHAR(20)
+  markerId : INT [FK]
+}
+
+entity "Calibration" as Calibration {
+  + calibrationId : INT [PK]
+  --
+  minValue : FLOAT
+  maxValue : FLOAT
+  calibrationDate : DATE
+  sliderId : INT [FK]
+}
+
+entity "SystemConfig" as SystemConfig {
+  + configId : INT [PK]
+  --
+  configName : VARCHAR(100)
+  status : VARCHAR(20)
+  calibrationId : INT [FK]
+}
+
+Camera ||--o{ ArUcoMarker : "1 до багато"
+ArUcoMarker ||--o{ SliderController : "1 до 1 / багато"
+SliderController ||--o{ Calibration : "1 до багато"
+Calibration ||--o{ SystemConfig : "1 до багато"
+
+@enduml

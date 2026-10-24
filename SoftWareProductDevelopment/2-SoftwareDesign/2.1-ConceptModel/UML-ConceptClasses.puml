@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Camera {
+  resolution
+  frameRate
+}
+
+class ArUcoMarker {
+  markerId
+  size
+}
+
+class SliderController {
+  currentValue
+  state
+}
+
+class Calibration {
+  minValue
+  maxValue
+  calibrationDate
+}
+
+class SystemConfig {
+  configName
+  status
+}
+
+Camera "1" -- "1" ArUcoMarker : зчитує >
+ArUcoMarker "1" -- "1" SliderController : ідентифікує >
+SliderController "1" -- "1" Calibration : використовує >
+Calibration "1" -- "*" SystemConfig : зберігає у >
+
+@enduml
