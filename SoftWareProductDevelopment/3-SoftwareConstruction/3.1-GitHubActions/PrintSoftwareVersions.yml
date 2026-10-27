@@ -1,0 +1,25 @@
+name: Print Software and DBMS Versions
+
+on:
+  push:
+    branches: [ SW_LabWork_4, main ]
+
+jobs:
+  print-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Print Python and SQLite Versions
+        run: |
+          echo "=== Python Version ==="
+          python --version
+          
+          echo "=== SQLite Version ==="
+          sqlite3 --version
