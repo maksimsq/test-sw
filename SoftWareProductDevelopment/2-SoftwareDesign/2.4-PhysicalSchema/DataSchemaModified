@@ -1,0 +1,1 @@
+create table CAMERA (camera_id int primary key, RESOLUTION varchar(50));

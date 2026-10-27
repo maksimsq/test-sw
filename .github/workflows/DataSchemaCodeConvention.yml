@@ -20,6 +20,6 @@ jobs:
         run: |
           pip install sqlfluff
 
-      - name: Run sqlfluff lint on database schema
+      - name: Run sqlfluff lint on modified database schema
         run: |
-          sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchema.sql --dialect postgres
+          sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchemaModified --dialect postgres
