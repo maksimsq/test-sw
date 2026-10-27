@@ -1,0 +1,26 @@
+name: SQL Code Convention Check
+
+on:
+  push:
+    branches: [ main, SW_LabWork_4 ]
+
+jobs:
+  lint-sql:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install sqlfluff
+        run: |
+          pip install sqlfluff
+
+      - name: Run sqlfluff lint on database schema
+        run: |
+          # Перевіряємо наш SQL файл (вкажи правильний шлях до файлу DataSchema.sql, який ти робив у 3-й лабораторній)
+          sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchema.sql
