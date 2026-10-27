@@ -1,0 +1,25 @@
+name: Python Code Convention Check
+
+on:
+  push:
+    branches: [ main, SW_LabWork_4 ]
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install flake8
+        run: |
+          pip install flake8
+
+      - name: Run flake8 lint on ProgramCode.py
+        run: |
+          flake8 SoftWareProductDevelopment/3-SoftwareConstruction/ProgramCode.py
