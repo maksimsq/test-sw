@@ -20,6 +20,6 @@ jobs:
         run: |
           pip install sqlfluff
 
-      - name: Run sqlfluff lint on modified database schema
+      - name: Run sqlfluff lint on modified database schema with strict fail
         run: |
-          sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchemaModified --dialect postgres
+          sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchemaModified --dialect postgres --fail-level warning
