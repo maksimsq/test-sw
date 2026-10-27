@@ -22,5 +22,4 @@ jobs:
 
       - name: Run sqlfluff lint on database schema
         run: |
-          # Перевіряємо наш SQL файл (вкажи правильний шлях до файлу DataSchema.sql, який ти робив у 3-й лабораторній)
           sqlfluff lint SoftWareProductDevelopment/2-SoftwareDesign/2.4-PhysicalSchema/DataSchema.sql
