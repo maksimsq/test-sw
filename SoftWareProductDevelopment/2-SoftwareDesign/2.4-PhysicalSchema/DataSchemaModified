@@ -1,1 +1,5 @@
-create table CAMERA (camera_id int primary key, RESOLUTION varchar(50));
+CREATE TABLE broken_table (
+    id INT PRIMARY KEY
+    -- пропущена кома тут викличе синтаксичну помилку
+    name TEXT
+);
