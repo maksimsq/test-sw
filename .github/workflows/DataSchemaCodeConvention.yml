@@ -24,4 +24,4 @@ jobs:
       - name: Lint DataSchema.sql
         run: |
           echo "=== Linting DataSchema.sql ==="
-          sqlfluff lint DataSchema.sql --dialect postgres
+          sqlfluff lint DataSchemaModified.sql --dialect postgres
