@@ -1,0 +1,27 @@
+name: Program Code Convention Check
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  lint-python-code:
+    name: Python Code Convention – flake8
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Lint ProgramCode.py
+        run: |
+          echo "=== Linting ProgramCode.py ==="
+          flake8 ProgramCode.py --max-line-length=79 --statistics

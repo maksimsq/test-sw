@@ -1,0 +1,27 @@
+name: Data Schema Code Convention Check
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  lint-sql-schema:
+    name: SQL Code Convention – sqlfluff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install sqlfluff
+        run: pip install sqlfluff
+
+      - name: Lint DataSchema.sql
+        run: |
+          echo "=== Linting DataSchema.sql ==="
+          sqlfluff lint DataSchema.sql --dialect postgres
