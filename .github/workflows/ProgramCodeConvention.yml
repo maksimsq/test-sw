@@ -24,4 +24,4 @@ jobs:
       - name: Lint ProgramCode.py
         run: |
           echo "=== Linting ProgramCode.py ==="
-          flake8 ProgramCodeModified.py --max-line-length=79 --statistics
+          flake8 ProgramCode.py --max-line-length=79 --statistics
